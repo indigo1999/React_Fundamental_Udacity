@@ -1,8 +1,37 @@
 import "./App.css";
-import { useState } from "react";
+import { getAll } from "./BooksAPI.js"
+import { useEffect, useState } from "react";
+import CategorySection from "./components/categorySection.js"
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
+  const [allBooks , setAllBooks] = useState([])
+  // const [currentlyReading_books , setCurrentReading_books] = useState([])
+  // const [wantToRead_books , setWantToRead_books] = useState([])
+  // const [read_books , setRead_books] = useState([])
+
+  const currentlyReading_books = allBooks.filter((book) => book["shelf"] == "currentlyReading")
+  const wantToRead_books = allBooks.filter((book) => book["shelf"] == "wantToRead")
+  const read_books = allBooks.filter((book) => book["shelf"] == "read")
+  
+  useEffect(() => {
+    const getAllBooks = async () => {
+      const res_allBooks = await getAll()
+      setAllBooks(res_allBooks)
+    }
+    getAllBooks()
+    // .then(() => {
+    //   const currentlyReading_books = allBooks.filter((book) => book["shelf"] == "currentlyReading")
+    //   const wantToRead_books = allBooks.filter((book) => book["shelf"] == "wantToRead")
+    //   const read_books = allBooks.filter((book) => book["shelf"] == "read")
+
+    //   setCurrentReading_books(currentlyReading_books)
+    //   setWantToRead_books(wantToRead_books)
+    //   setRead_books(read_books)
+    // });
+  },[])
+
+  console.log(currentlyReading_books+"\n"+wantToRead_books+"\n"+read_books)
 
   return (
     <div className="app">
@@ -18,6 +47,7 @@ function App() {
             <div className="search-books-input-wrapper">
               <input
                 type="text"
+                onChange={() => {}}
                 placeholder="Search by title, author, or ISBN"
               />
             </div>
@@ -31,8 +61,58 @@ function App() {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
+
           <div className="list-books-content">
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">Currently Reading</h2>
+                {
+                  <div>
+                    {
+                      currentlyReading_books.map((book) => (
+                        <div key={book["title"]}>
+                          <CategorySection book_data={book} />
+                        </div>
+                      ))
+                    }
+                  </div>
+                }
+            </div>
+
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">Want to Read</h2>
+                {
+                  <div>
+                    {
+                      wantToRead_books.map((book) => (
+                        <div key={book["title"]}>
+                          <CategorySection book_data={book} />
+                        </div>
+                      ))
+                    }
+                  </div>
+                }
+            </div>
+
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">Read</h2>
+                {
+                  <div>
+                    {
+                      read_books.map((book) => (
+                        <div key={book["title"]}>
+                          <CategorySection book_data={book} />
+                        </div>
+                      ))
+                    }
+                  </div>
+                }
+            </div>
+
+          </div>
+          
+          {/* <div className="list-books-content">
             <div>
+
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
                 <div className="bookshelf-books">
@@ -100,6 +180,7 @@ function App() {
                   </ol>
                 </div>
               </div>
+
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Want to Read</h2>
                 <div className="bookshelf-books">
@@ -169,6 +250,7 @@ function App() {
                   </ol>
                 </div>
               </div>
+
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
@@ -270,10 +352,15 @@ function App() {
                   </ol>
                 </div>
               </div>
+
             </div>
-          </div>
+          </div> */}
+
+
+
+
           <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
+            <a onClick={() => setShowSearchpage(!showSearchPage)}>search</a>
           </div>
         </div>
       )}
