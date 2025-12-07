@@ -8,7 +8,10 @@ class CategorySection extends Component {
         super(props);
         this.state = {
             book_data : this.props.book_data,
-            category_value : ""
+            category_value : "",
+            //--- ref : ChatGpt (advice) ----
+            onShelfChange : this.props.onShelfChange
+            //-------------------------------
         }
     }
 
@@ -22,6 +25,7 @@ class CategorySection extends Component {
         if (shelf !== "none") {
             update(this.state.book_data,shelf)
             .then((updated_books) => { console.log(updated_books) })
+            .finally(() => { this.state.onShelfChange()   })
         }
     }
 
