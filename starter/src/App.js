@@ -29,7 +29,7 @@ function App() {
     //   setWantToRead_books(wantToRead_books)
     //   setRead_books(read_books)
     // });
-  },[])
+  },[currentlyReading_books , wantToRead_books , read_books])
 
   console.log(currentlyReading_books+"\n"+wantToRead_books+"\n"+read_books)
 
