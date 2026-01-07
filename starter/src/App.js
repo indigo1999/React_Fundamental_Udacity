@@ -1,10 +1,15 @@
 import "./App.css";
-import { getAll } from "./BooksAPI.js"
+import { getAll , search , get } from "./BooksAPI.js"
 import { useEffect, useState } from "react";
 import CategorySection from "./components/categorySection.js"
+import SearchPage from "./components/searchPage.js"
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
+  const [searchInput,setSearchInput] = useState("");
+
+
+
   const [allBooks , setAllBooks] = useState([])
   
   useEffect(() => {
@@ -23,9 +28,19 @@ function App() {
   }
   ///---------------------
   
+
+  ///-----handleSearchInput------
+  const handleSearchInput = (event) => {
+    setSearchInput(event.target.value) 
+  }
+
+  ///----------------------------
+
+  ///-------filter books---------
   const currentlyReading_books = allBooks.filter((book) => book["shelf"] == "currentlyReading")
   const wantToRead_books = allBooks.filter((book) => book["shelf"] == "wantToRead")
   const read_books = allBooks.filter((book) => book["shelf"] == "read")
+  ///----------------------------
 
   console.log(currentlyReading_books+"\n"+wantToRead_books+"\n"+read_books)
 
@@ -43,13 +58,15 @@ function App() {
             <div className="search-books-input-wrapper">
               <input
                 type="text"
-                onChange={() => {}}
+                value={searchInput}
+                onChange={e => handleSearchInput(e)}
                 placeholder="Search by title, author, or ISBN"
               />
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid"></ol>
+            <SearchPage test_text={searchInput}/>
           </div>
         </div>
       ) : (
