@@ -1,5 +1,5 @@
 import "./App.css";
-import { getAll , search , get } from "./BooksAPI.js"
+import { getAll } from "./BooksAPI.js"
 import { useEffect, useState } from "react";
 import CategorySection from "./components/categorySection.js"
 import SearchPage from "./components/searchPage.js"
@@ -29,13 +29,6 @@ function App() {
   ///---------------------
   
 
-  ///-----handleSearchInput------
-  const handleSearchInput = (event) => {
-    setSearchInput(event.target.value) 
-  }
-
-  ///----------------------------
-
   ///-------filter books---------
   const currentlyReading_books = allBooks.filter((book) => book["shelf"] == "currentlyReading")
   const wantToRead_books = allBooks.filter((book) => book["shelf"] == "wantToRead")
@@ -59,14 +52,14 @@ function App() {
               <input
                 type="text"
                 value={searchInput}
-                onChange={e => handleSearchInput(e)}
+                onChange={e => setSearchInput(e.target.value)}
                 placeholder="Search by title, author, or ISBN"
               />
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid"></ol>
-            <SearchPage test_text={searchInput}/>
+            <SearchPage search_text={searchInput} onShelfChange={refresh_books}/>
           </div>
         </div>
       ) : (
