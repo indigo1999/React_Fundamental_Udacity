@@ -63,7 +63,7 @@ class CategorySection extends Component {
                             </div>
                             </div>
                             <div className="book-title">{this.state.book_data["title"]}</div>
-                            <div className="book-authors">{this.state.book_data["authors"][0]}</div>
+                            <div className="book-authors">{this.state.book_data["authors"]}</div>
                         </div>
                         </li>
                     </ol>
