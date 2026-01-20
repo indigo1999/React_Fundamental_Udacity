@@ -61,13 +61,12 @@ function SearchPage({search_text , onShelfChange}) {
 
     return (
         <div>
-            <div>Checkpoint get all searched book by each of their book's Id.</div>
             <div>
             {
                 bookResult.length ? 
                     <div className="list-books">
                         <div className="list-books-title">
-                            <h1>xxx</h1>
+                            <h1>List of Searched books with Category</h1>
                         </div>
 
                         <div className="list-books-content">
@@ -77,7 +76,7 @@ function SearchPage({search_text , onShelfChange}) {
                                     {
                                         currentlyReading.map((book) => (
                                             <div key={book["title"]} >
-                                                {book["title"]}
+                                                <CategorySection book_data={book} onShelfChange={onShelfChange} />
                                             </div>
                                         ))
                                     }
@@ -88,7 +87,7 @@ function SearchPage({search_text , onShelfChange}) {
                                     {
                                         wantToRead.map((book) => (
                                             <div key={book["title"]} >
-                                                {book["title"]}
+                                                <CategorySection book_data={book} onShelfChange={onShelfChange} />
                                             </div>
                                         ))
                                     }
@@ -99,7 +98,7 @@ function SearchPage({search_text , onShelfChange}) {
                                     {
                                         read.map((book) => (
                                             <div key={book["title"]} >
-                                                {book["title"]}
+                                                <CategorySection book_data={book} onShelfChange={onShelfChange} />
                                             </div>
                                         ))
                                     }
@@ -120,7 +119,7 @@ function SearchPage({search_text , onShelfChange}) {
           
                     </div>
                         : 
-                    <div>nothing</div>
+                    <div></div>
             }
             </div>
         </div>
