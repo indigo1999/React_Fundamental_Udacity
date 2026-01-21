@@ -1,7 +1,7 @@
 import "./App.css";
 import { getAll } from "./BooksAPI.js"
 import { useEffect, useState } from "react";
-import CategorySection from "./components/categorySection.js"
+import CategorySectionPage from "./components/categorySectionPage.js"
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
@@ -28,6 +28,7 @@ function App() {
   const read_books = allBooks.filter((book) => book["shelf"] == "read")
 
   console.log(currentlyReading_books+"\n"+wantToRead_books+"\n"+read_books)
+  console.log(allBooks)
 
   return (
     <div className="app">
@@ -66,7 +67,7 @@ function App() {
                     {
                       currentlyReading_books.map((book) => (
                         <div key={book["title"]}>
-                          <CategorySection book_data={book} onShelfChange={refresh_books} />
+                          <CategorySectionPage book_data={book} onShelfChange={refresh_books} />
                         </div>
                       ))
                     }
@@ -81,7 +82,7 @@ function App() {
                     {
                       wantToRead_books.map((book) => (
                         <div key={book["title"]}>
-                          <CategorySection book_data={book} onShelfChange={refresh_books} />
+                          <CategorySectionPage book_data={book} onShelfChange={refresh_books} />
                         </div>
                       ))
                     }
@@ -96,7 +97,7 @@ function App() {
                     {
                       read_books.map((book) => (
                         <div key={book["title"]}>
-                          <CategorySection book_data={book} onShelfChange={refresh_books} />
+                          <CategorySectionPage book_data={book} onShelfChange={refresh_books} />
                         </div>
                       ))
                     }
